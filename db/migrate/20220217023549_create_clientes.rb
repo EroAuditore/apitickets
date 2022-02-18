@@ -5,7 +5,7 @@ class CreateClientes < ActiveRecord::Migration[6.1]
       t.string :rfc
       t.string :direccion
       t.string :email
-      t.references :agente, null: false, foreign_key: true
+      t.belongs_to :agente
 
       t.timestamps
     end
