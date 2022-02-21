@@ -24,17 +24,26 @@ RSpec.describe "/v1/agentes", type: :request do
   # middleware. Be sure to keep this updated too.
 
   describe "GET /index" do
-    it "renders a successful response" do
-      Agente.create!
-      get '/v1/agentes', headers: valid_headers, as: :json
+    let!(:agentes_list) do
+      FactoryBot.create_list(:agente, 10)
+    end
+    it "renders a successful response to all agents" do
+     
+      get '/v1/agentes'
+      json = JSON.parse(response.body)
+     
+      expect(json).not_to be_empty
+      expect(json.size).to eq(10)
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      agente = Agente.create! valid_attributes
-      get agente_url(agente), as: :json
+
+      agente = agentes_list.first
+      byebug
+      get "/v1/agente/#{agente.id}"
       expect(response).to be_successful
     end
   end
