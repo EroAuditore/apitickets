@@ -16,6 +16,9 @@ RSpec.describe "/v1/agentes", type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Agente. As you add validations to Agente, be sure to
   # adjust the attributes here as well.
+  let!(:agentes_list) do
+    FactoryBot.create_list(:agente, 10)
+  end
   
 
   # This should return the minimal set of values that should be in the headers
@@ -24,9 +27,7 @@ RSpec.describe "/v1/agentes", type: :request do
   # middleware. Be sure to keep this updated too.
 
   describe "GET /index" do
-    let!(:agentes_list) do
-      FactoryBot.create_list(:agente, 10)
-    end
+   
     it "renders a successful response to all agents" do
      
       get '/v1/agentes'
@@ -42,7 +43,7 @@ RSpec.describe "/v1/agentes", type: :request do
     it "renders a successful response" do
 
       agente = agentes_list.first
-      byebug
+      
       get "/v1/agente/#{agente.id}"
       expect(response).to be_successful
     end
